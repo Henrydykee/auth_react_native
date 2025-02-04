@@ -23,6 +23,7 @@ function Button({ children, onPress }:{children : any,  onPress: () => void }) {
       paddingHorizontal: 12,
       backgroundColor: Colors.primary500,
       elevation: 2,
+      marginTop : 3,
       shadowColor: 'black',
       shadowOffset: { width: 1, height: 1 },
       shadowOpacity: 0.25,
