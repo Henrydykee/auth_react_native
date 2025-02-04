@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios";
 
 // Environment variables are better for sensitive data
 const FIREBASE_AUTH_BASE_URL = "https://identitytoolkit.googleapis.com/v1/accounts";
-const API_KEY = process.env.REACT_APP_FIREBASE_API_KEY || "AIzaSyC7XD9CqPcBac0VhZvOCtCR6L0fHFRRd2A";
+const API_KEY = process.env.REACT_APP_FIREBASE_API_KEY || "";
 
 // Type definitions
 interface AuthCredentials {
