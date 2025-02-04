@@ -2,7 +2,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import Button from '../components/ui/button';
 import { AuthContext } from '../store/auth_context';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 
 
 function WelcomeScreen() {
@@ -13,6 +13,8 @@ function WelcomeScreen() {
   function logout() {
     auth.logout();
   }
+
+
   
   return (
     <View style={styles.rootContainer}>

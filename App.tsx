@@ -5,10 +5,12 @@ import LoginScreen from "./screen/login_screen";
 import { Colors } from "./constant/styles";
 import SignupScreen from "./screen/signup_screen";
 import WelcomeScreen from "./screen/welcome_screen";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import AuthContextProvider, { AuthContext } from "./store/auth_context";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import AppLoading from "expo-app-loading";
 
 // Create a stack navigator instance
 const Stack = createStackNavigator();
@@ -61,6 +63,28 @@ function Navigation() {
   );
 }
 
+function Root() {
+  const auth = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Fetch user token from AsyncStorage and authenticate user if it exists
+    async function fetchToken() {
+      const token = await AsyncStorage.getItem("authToken");
+      if (token) {
+        auth.authenticate(token);
+      }
+      setIsLoading(false);
+    }
+    fetchToken();
+  }, []);
+
+  if(isLoading){
+    return <AppLoading />;
+  }
+  return <Navigation />;
+}
+
 // Root App component
 export default function App() {
   return (
@@ -70,7 +94,7 @@ export default function App() {
         {/* Set status bar style */}
         <StatusBar style="light" />
         {/* Main navigation component */}
-        <Navigation />
+        <Root />
       </AuthContextProvider>
     </>
   );
