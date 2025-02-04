@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import AuthContent from "../components/auth/auth_content";
 import { createUser } from "../util/auth";
 import LoadingOverlay from "../components/ui/loading_overlay";
@@ -6,6 +6,8 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
 import WelcomeScreen from "./welcome_screen";
 import { Alert } from "react-native";
+import { AuthContext } from "../store/auth_context";
+import {FirebaseAuthResponse} from "../util/auth";
 
 export type RootStackParamList = {
   Login: undefined;
@@ -14,8 +16,8 @@ export type RootStackParamList = {
 
 function SignupScreen() {
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const  authContext  = useContext(AuthContext);
 
   // TODO: Implement signup logic here.
   async function signUpHandler({
@@ -27,10 +29,9 @@ function SignupScreen() {
   }) {
     setIsLoading(true);
     try {
-      const res = await createUser({ email, password });
+      const res: FirebaseAuthResponse = await createUser({ email, password });
+      authContext.authenticate(res.idToken);
       setIsLoading(false);
-      //  navigation.navigate(WelcomeScreen())
-      console.log("User created successfully:");
     } catch (error) {
       setIsLoading(false);
       if (error instanceof Error) {
