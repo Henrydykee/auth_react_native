@@ -1,8 +1,20 @@
 import { useState } from "react";
-import { Alert, Button, View , StyleSheet} from "react-native";
+import { Alert,  View , StyleSheet} from "react-native";
 import Input from "./input";
+import Button from "../ui/button";
 
-function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
+interface AuthFormProps {
+  isLogin: boolean;
+  onSubmit: (credentials: { email: string; confirmEmail: string; password: string; confirmPassword: string }) => void;
+  credentialsInvalid: {
+    email: boolean;
+    confirmEmail: boolean;
+    password: boolean;
+    confirmPassword: boolean;
+  };
+}
+
+function AuthForm({ isLogin, onSubmit, credentialsInvalid }: AuthFormProps) {
     
     const [enteredEmail, setEnteredEmail] = useState('');
     const [enteredConfirmEmail, setEnteredConfirmEmail] = useState('');
@@ -43,7 +55,7 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
   
     return (
       <View 
-     // style={styles.form}
+
       >
         <View>
           <Input
@@ -78,7 +90,7 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
               isInvalid={passwordsDontMatch}
             />
 )}          <View style={styles.buttons}>
-            <Button onPress={submitHandler} title={isLogin ? 'Log In' : 'Sign Up'} />
+            <Button onPress={submitHandler}>{isLogin ? 'Log In' : 'Sign Up'}</Button>
           </View>
         </View>
       </View>

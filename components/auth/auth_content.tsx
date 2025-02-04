@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Alert, View , StyleSheet} from "react-native";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 import FlatButton from "../ui/flat_button";
 import AuthForm from "./auth_form";
+import { Colors } from "../../constant/styles";
 
 
 interface AuthContentProps {
